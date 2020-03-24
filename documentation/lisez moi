@@ -1,0 +1,98 @@
+fonctionnement général
+
+Pour l'instant le programme comprend 3 éléments :
+
+- un serveur son qui utilise pyo
+    pyo est une librairie python qui execute du code en C. la doc est super bien faite http://ajaxsoundstudio.com/pyodoc/
+    j'ai assez peu pratiqué pour l'instant, le serveur que j'utilise est un code que j'ai a peine bidouillé, ça joue jusqu'a 10 notes en polyphonie a partir de message midi. il faut vérifier que le module envoie le son vers le bon périphérique (pulse chez moi):
+    
+        inputs, outputs = pa_get_devices_infos()
+        """on récupère la liste des périphériques audio"""
+        for index in sorted(outputs.keys()):
+            """pour chaque périphérique"""
+            if outputs[index]['name'] == 'pulse' :
+                """si le périphérique s'appele 'pulse'"""
+                x = index
+                """on sauvegarde son index"""
+        s.setOutputDevice(x)
+        """on conecte le serveur son au périphérique grace à la sauvegarde de son
+        index"""
+
+    le serveur son dispose d'une petite interface graphique qui permet notament d'envoyer des lignes de commande.
+    tous les objet pyo ont une interface graphique préconfigurée que l'on lance avec la commande nomObjet.ctrl() , pratique pour la bidouille
+    bon ça arrie que le serveur son crash (...) dans ce cas il faut le relancer depuis l'interface graphique (bouton start)
+    
+    c'est un subprocess, ça tourne en paralelle (sur un autre coeur normallement) les entrée/sortie/erreur ne sont pas parametrée
+    
+
+- une fenetre pygame (module iGraph)
+    c'est le ceur du programme :
+        - affiche l'interface graphique. pour l'instant ça affiche juste une portée (parametrable) en apuyant sur a
+        - gère les evenement (clavier/souris)
+        - crée un serveur MIDI (thread) qui communique avec le serveur son (et éventuellement un controleur midi, j'ai fait une config pour un BCD3000 que j'ai récupéré) (bibliotheque mido et rtmidi)
+        - envoie des message MIDI (touche entrée)
+        - utilise le module solfege pour générer de la musique
+    
+    pour l'intant c'est absolument pas organisé, c'était juste pour tester les différents modul (qui ont l'air de cohabiter corectement)
+    
+    c'est l'objet portée qui charge solfege et lit les séquences crée en envoyant des message midi au serveur son (thread)
+    
+- solfege
+
+    pour l'instant j'ai surtout bossé la dessus. ça commence a grossir alor je vais l'organiser en package, pour l'intant c'est un module qui comporte déja quelque classe (Cf shema sorfege):
+    
+        -TCores:
+            créeu des variables utilisable dans tout le modul via TC.nomVariable
+            contient notament la table de corespondance entre les numéro midi et le nom des notes
+            
+        - Note
+            modelise des notes et gère la conversion entre le nom de la note selon la norme française (nom (do, ré, mi,...), altération (dièse, bémole, ''), numéro d'octave) et son numéro midi. prend en compte le cas particulier des gamme tonale ou le nom des note doit se suivre et atribue les altération dièse ou bémole en fontion de cette contrainte
+            
+        - Tonal
+        tonalité définie par :
+            - son mode (tonal majeur, tonal mineur, blues majeur,...) qui est un tuple d'entier qui représente l'écart entre les degré de la gamme en demi ton. exemple : (2,2,1,2,2,2,1) pour la game tonale majeure. on peut stoquer des mode dans la classe TCOres.
+            - sa tonique, qui peut etre définie par son nom complet (nom , altération, numéro d'octave) ou son numéro midi
+        crée une liste d'objet note appartenant a cette gamme et leurs atribue un degré. la gamme contient 4 octave, de -1 si la mélodie descend en dessous de la tonique, a + 2 pour gérer les notes des accord qui sont généralement plus aigue
+        
+        - mesure :
+        définie par son nombre de temps et de sous temps (subdivision du temps). en fonction de ces deux parametres on fixe un type (binaire ou terneair pour la mesur et le temps) crée une liste de sous temps et leur atribue un type (faible ou fort)
+        
+        -compo
+        embryonaire. crée une liste de note en les piochant dans la gamme (regle a définir). crée un rythme sur la mesure en fonction de probabilité. croise les deux information pour générer la séquence de la mélodie
+        
+        le reste c'est encore de la science fiction :
+            - un objet melo (mélodie) qui centralise tout ce merdier avec possibilité de sauvegarder cet objet (pickle)
+            - un objet harmonie qui gère la poliphonie (certainement avec des objets accord)
+            - un objet motif qui centralise tout. il stoque les sequences des différentes voix, peut sauvegarder ou charger les objets,  calculer une nouvelle mélodie. il stock les parametres de tout les objet (cela permet de les modifier sans toucher a la sequence puis d'envoyer un reset pour en générer une nouvelle en prenant en compte tous les nouveaux parametres)
+            
+        pour l'instant le modul est lancé de manière procedurale, si ça devient trop lourd il faudra faire un subproceszs ou un thread
+            
+remarque :
+
+- la version brouillon est dans le fichier du meme nom. je vai la laisser tel quel et recréer une nouvelle version au propre
+
+- les classe prennent une majuscule, les attributs et les méthodes sont en camelCase, les variables de TCores sont en snakecase.
+cas particulier :
+    _M pour majeur, _m pour mineur exemple :blues_M : blues majeur et blues_m : blues mineur
+    pour les temps et sous temps, f pour faible et F pour fort
+
+- les variables peuvent avoir des accents, le programe utilise la notation française des notes du coup ça se tient
+
+- les objets possedent une méthode self.info() qui print les info de l'objet
+
+- un des objectif est de pouvoir afficher la sequence modifier en cliquant sur les notes (ou autre)
+
+- pour jouer la sequence on envoie un thread qui itere la liste des sous temps et envoie un message note_on et/ou note_off en fonction du contenu de chaque sous temps. un time.sleep() entre chaque itération permet de définir le tempo. exemple de séquence shématisée :
+    0 - do ON
+    1 - 
+    2 - mi ON
+    3 - mi OFF,do OFF
+    (on joue do pendant 3 sous temps et mi pendant 1 soustemps)
+
+- le but est de pouvoir afficher différentes voix sur une même portée (diférentes couleur) et de les jouer ensemble ou séparment en leurs attribuant des timbre/filtre/effets différent (dans le module pyo)
+
+- je privilégie l'envoi de parametre par la methode kwarg** (dictionaire a longueur variable) avec test de la présence des différents attribut dans le dictionnaire en début de méthode. si l'atribut est absent on lui donne une valeur par défaut
+
+- a terme ça serait cool de coupler ce tas de boue avec une IA. genre on donne en entrée l'objet motif et une évaluation (soit générale soit ciblée : rythme, mélodie, harmonie) et on lui fait générer des séquences
+
+- l'ortographe est la science des anes
