@@ -5,9 +5,9 @@ Created on Fri Mar 27 15:55:15 2020
 
 @author: j
 """
-
+from solfege import *
 from solfege.TCores import TC
-from solfege.Note import Note
+
 
 class Tonal:
     """création de la tonalité a partir d'un tuple, si le tupple est vide

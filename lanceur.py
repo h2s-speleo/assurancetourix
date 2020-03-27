@@ -7,15 +7,15 @@ Created on Tue Mar 24 23:09:28 2020
 """
 
 import solfege as SF
-from solfege.TCores import TC
-
-
+from solfege import TC
 
 print("##############################################")
-a = SF.Note()
-a.reset(nomFr = "ré", alt = "bémole")
-a.info()
-print("##############################################")
-b = SF.Tonal(tonique = a)
-b.info()
-print("##############################################")
+
+#a = SF.Note()
+#a.reset(nomFr = "ré", alt = "bémole")
+#a.info()
+#print("##############################################")
+
+#b = SF.Tonal(tonique = a, mode = TC.tonal_M)
+#b.info()
+#print("##############################################")
