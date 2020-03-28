@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from solfege import *
-from solfege.TCores import TC
+import solfege as SF
+
 
 class Melo:
-    def __init__(self):
+    def __init__(self, **kwargs):
         self.parent = None
         self.tonal = None
         self.rythme = None
+
+        self.reset(**kwargs)
+
+    def reset(self, **kwargs):
+        self.tonal = SF.Tonal(**kwargs)
+        self.tonal.parent = self

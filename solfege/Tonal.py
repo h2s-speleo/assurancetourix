@@ -5,7 +5,7 @@ Created on Fri Mar 27 15:55:15 2020
 
 @author: j
 """
-from solfege import *
+import solfege as SF
 from solfege.TCores import TC
 
 
@@ -23,7 +23,7 @@ class Tonal:
     def __init__(self,**kwargs):
         self.mode = kwargs.get('mode', TC.tonal_M) # = échelle d'interval
         self.parent = None
-        self.tonique = Note()
+        self.tonique = SF.Note()
         self.gamme = list()
         """création de la liste de note"""
 
@@ -45,7 +45,7 @@ class Tonal:
                 raise AttributeError("EREURE : Un objet Tonal ne peut pas etre"
                                      +" définit par un nMidi")
             else:
-                self.tonique = Note(**kwargs)
+                self.tonique = SF.Note(**kwargs)
 
         ecartTotal = 0
         """initialisation de la variable ecartTotal qui décrit la distance
@@ -100,7 +100,7 @@ class Tonal:
             correspondance accessible dans TCores"""
             nOcta =  TC.tab_nOcta[ref]
             """on définit l'octave du degré a parir de ref"""
-            self.gamme.append(Note())
+            self.gamme.append(SF.Note())
             """on crée une note qui est stoquée dans self.gamme"""
             self.gamme[i].nMidi = listeDegre[i][0]
             self.gamme[i].nOcta = nOcta

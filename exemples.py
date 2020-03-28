@@ -11,17 +11,20 @@ from solfege import TC
 
 print("##############################################")
 
-a = SF.Note()
-a.reset(nomFr = "ré", alt = "bémole")
-a.info()
-print("##############################################")
+#a = SF.Note()
+#a.reset(nomFr = "ré", alt = "bémole")
+#a.info()
+#print("##############################################")
+#
+#b = SF.Tonal(tonique = a, mode = TC.tonal_M)
+#b.info()
+#b.reset(nomFr = 'fa')
+#b.info()
+#print("##############################################")
+#
+#c = SF.Mesure(nbTps = 4, nbSTps = 2)
+#c.info()
+#print("##############################################")
 
-b = SF.Tonal(tonique = a, mode = TC.tonal_M)
-b.info()
-b.reset(nomFr = 'fa')
-b.info()
-print("##############################################")
-
-c = SF.Mesure(nbTps = 4, nbSTps = 2)
-c.info()
-print("##############################################")
+d = SF.Motif(nomFr = "ré", nbTps = 4)
+d.info()
