@@ -28,8 +28,9 @@ class Motif:
         self.probTpsFo = 100
         self.probTpsFa = 25
 
-        self.longMax = 4
+        self.longMax = 2
         self.longMin = 1
+        self.cible = [5,1]
 
         self.reset(**kwargs)
 
@@ -73,6 +74,7 @@ class Motif:
 
         self.longMax = kwargs.get('longMax', self.longMax)
         self.longMin = kwargs.get('longMin', self.longMin)
+        self.cible = kwargs.get('cible', self.cible)
 
 
 
@@ -90,12 +92,21 @@ class Motif:
                               probaTpsFa = self.probTpsFa,
                               probaTpsFo = self.probTpsFo,
                               longMax = self.longMax,
-                              longMin = self.longMin)
+                              longMin = self.longMin,
+                              cible = self.cible)
         self.compo.parent = self
+        self.compo.Comp1()
 
     def info(self):
-        print("tonalité")
+        print("#### tonalité #########################")
         self.melo.tonal.info()
         print()
-        print("mesure")
+        print("#### mesure #########################")
         self.mesure.info()
+        print()
+        print("#### rythme #########################")
+        print()
+        self.melo.rythme.info()
+        print()
+        print("#### compo #########################")
+        self.compo.info()

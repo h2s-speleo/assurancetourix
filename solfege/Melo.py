@@ -15,3 +15,6 @@ class Melo:
     def reset(self, **kwargs):
         self.tonal = SF.Tonal(**kwargs)
         self.tonal.parent = self
+
+        self.rythme = SF.Rythme()
+        self.rythme.parent = self

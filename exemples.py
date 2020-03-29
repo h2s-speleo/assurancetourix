@@ -22,9 +22,10 @@ print("##############################################")
 #b.info()
 #print("##############################################")
 #
-#c = SF.Mesure(nbTps = 4, nbSTps = 2)
+#c = SF.Mesure(nbTps = 3, nbSTps = 4)
 #c.info()
 #print("##############################################")
 
-d = SF.Motif(nomFr = "ré", nbTps = 4)
+d = SF.Motif(nomFr = "mi", alt = 'dièse', nbTps = 2)
 d.info()
+print("##############################################")

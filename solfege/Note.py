@@ -81,3 +81,13 @@ class Note:
             self.alt = 'bémole'
         elif TC.tab_nomFr[ref-1] == self.nomFr :
             self.alt = 'dièse'
+
+class Silence(Note):
+    def __init__(self):
+        Note.__init__(self)
+        self.degre = 'NULL'
+        self.tonal = 'NULL'
+        self.nMidi = 'NULL'
+        self.nOcta = 'NULL'
+        self.nomFr = 'SIL'
+        self.alt = 'NULL'

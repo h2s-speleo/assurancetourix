@@ -6,7 +6,7 @@
 
 
 from solfege.Melo import Melo
-from solfege.Note import Note
+from solfege.Note import Note, Silence
 from solfege.Tonal import Tonal
 from solfege.Compo import Compo
 from solfege.Mesure import Mesure
