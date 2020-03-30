@@ -146,13 +146,13 @@ class Compo:
                 self.parent.melo.rythme.listeMessag[debut]\
                 .append((
                         self.parent.melo.rythme.listRythme[i]['note'].nMidi,
-                        "noteOn",
+                        "note_on",
                         self.parent.melo.rythme.listRythme[i]['note']))
 
                 self.parent.melo.rythme.listeMessag[fin]\
                 .append((
                         self.parent.melo.rythme.listRythme[i]['note'].nMidi,
-                        "noteOff",
+                        "note_off",
                         self.parent.melo.rythme.listRythme[i]['note']))
 
     def info(self):

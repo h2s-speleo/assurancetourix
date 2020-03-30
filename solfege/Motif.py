@@ -2,8 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import solfege as SF
-#from solfege.Melo import Melo
-#from solfege.TCores import TC
+from solfege.TCores import TC
 
 
 
@@ -15,7 +14,7 @@ class Motif:
         self.mesure = None
         self.parent = None
 
-        self.mode = (2,2,1,2,2,2,1)
+        self.mode = TC.tonal_M
         self.tonique = SF.Note()
         self.nMidi = 60
         self.nOcta = 3

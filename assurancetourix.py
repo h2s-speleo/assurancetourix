@@ -1,8 +1,19 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Tue Mar 24 22:37:30 2020
 
-@author: j
-"""
 
+import subprocess
+import iGraph
+
+
+###############################################################################
+serveurSon=subprocess.Popen("./serveurPyo.py", shell=True )
+"""lancement du serveur son en subprocess"""
+
+IG = iGraph.Fenetre()
+###############################################################################
+
+subprocess.Popen.kill(serveurSon)
+"""on tue le subprocess"""
+#exit()
+"""on quitte la terminal"""
