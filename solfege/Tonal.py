@@ -50,7 +50,7 @@ class Tonal:
         ecartTotal = 0
         """initialisation de la variable ecartTotal qui décrit la distance
         entre les premiers degrés de deux octaves"""
-        listeDegre = list()
+        self.listeDegre = list()
         nMidi = self.tonique.nMidi
 
         for i in range(len(self.mode)):
@@ -64,7 +64,7 @@ class Tonal:
             pour les 4 octaves a construire"""
             for i in range(len(self.mode)):
                 """pour chacun des écarts qui définnissent le mode"""
-                listeDegre.append([nMidi])
+                self.listeDegre.append([nMidi])
                 """on ajoute le Nmidi à la liste"""
                 nMidi = nMidi + self.mode[i%len(self.mode)]
                 """on ajoute nMidi + écart"""
@@ -72,39 +72,47 @@ class Tonal:
         compt = 0
         listeNom = list()
         self.gamme = list()
-        for i in range(len(listeDegre)*2):
+        for i in range(len(self.listeDegre)*2):
             """pour chaque degré de la liste * 2. permet de compenser le
             fait que l'on commence la recherche pas forcément au début de
             la liste"""
-            listeNom.append(TC.do_re_mi[(i%len(self.mode))])
+            listeNom.append(TC.do_re_mi[i%len(TC.do_re_mi)])
             """on ajoute la valeur de do_re_mi a la liste de nom"""
+
+
+
         for i in range(len(listeNom)):
             """ pour chaque element de la liste dorémi que l'on vient de créer"""
             if listeNom[i]== self.tonique.nomFr:
+
                 """lorsque l'on trouve la valeur qui définit le ton"""
                 debut = 1
                 """ on comence a compter"""
             if debut ==1:
                 """si on a commencé a compter"""
-                listeDegre[compt].append(listeNom[i])
+                self.listeDegre[compt].append(listeNom[i])
                 """on atribue un nomFr a la liste de degré"""
                 compt = compt + 1
-            if compt == len(listeDegre):
+            if compt == len(self.listeDegre):
                 """si on a donné un nom FR a tous les degré"""
                 break
                 """on arrete l'itération"""
-        for i in range(len(listeDegre)):
+
+
+        for i in range(len(self.listeDegre)):
             """pour chaque degré de la liste"""
-            ref = TC.tab_nMidi.index(listeDegre[i][0])
+            ref = TC.tab_nMidi.index(self.listeDegre[i][0])
             """ref stoque l'index (int) du nMidi dans la table de
             correspondance accessible dans TCores"""
             nOcta =  TC.tab_nOcta[ref]
             """on définit l'octave du degré a parir de ref"""
             self.gamme.append(SF.Note())
             """on crée une note qui est stoquée dans self.gamme"""
-            self.gamme[i].nMidi = listeDegre[i][0]
+            self.gamme[i].nMidi = self.listeDegre[i][0]
             self.gamme[i].nOcta = nOcta
-            self.gamme[i].nomFr = listeDegre[i][1]
+
+
+            self.gamme[i].nomFr = self.listeDegre[i][1]
             """on redéfinit les atributs de la note"""
             self.gamme[i].defAlt()
             """on définit l'altération en fonction de la tonalité"""

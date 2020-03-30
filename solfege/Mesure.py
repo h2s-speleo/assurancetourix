@@ -68,6 +68,10 @@ class Mesure:
 
                 self.lisMes.append((compt,i,forceT,j,forceST))
                 compt = compt + 1
+#
+#        print('############################################################')
+#        print('solfege.Mesure')
+#        print(self.__dict__)
 
     def info(self):
         for i in range(len(self.lisMes)):

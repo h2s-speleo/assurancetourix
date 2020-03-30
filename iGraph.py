@@ -65,34 +65,24 @@ class Fenetre:
         METRO = USEREVENT + 1
         pygame.time.set_timer(METRO, 0)
 
-
-
-
-
         self.resSeq()
         self.longeur = len(self.listMessag)
         self.indice = 0
         self.boucle = 0
         self.derNote = 60
-
-
-
+        self.prog = 0
         self.playing = 0
         self.tempo = 150
 
-
-
-
-
         def resJouer() :
             pygame.time.set_timer(METRO, 0)
-
             msg2 = mido.Message("note_off",
                                 channel = 1,
                                 note = self.derNote,
                                 velocity=127)
             self.outport.send(msg2)
-
+            if self.prog ==  1:
+                self.resSeq()
             self.playing  = 0
             self.longeur = len(self.listMessag)
             self.indice = 0
@@ -125,10 +115,10 @@ class Fenetre:
                                             velocity=127)
                         self.outport.send(msg2)
                         self.derNote = pas[i][0]
-                    print()
                 else:
                     print()
             self.indice = self.indice + 1
+
 
         """boucle principale de l'interface graphique"""
         #BOUCLE INFINIE
@@ -193,6 +183,14 @@ class Fenetre:
                         self.boucle = 1
                         print('BOUCLE ON')
 
+                if event.type == KEYDOWN and event.key == K_n:
+                    if self.prog == 1 :
+                        self.prog = 0
+                        print('PROGRESSION OFF')
+                    elif self.prog == 0 :
+                        self.prog = 1
+                        print('PROGRESSION ON')
+
 
                 if event.type == KEYDOWN and event.key == K_r:
                     print('RESET SEQUENCE')
@@ -219,24 +217,46 @@ class Fenetre:
         self.listMessag = self.motif.melo.rythme.listeMessag
 
     def resParam(self):
+
+        print('IGraph.resParam')
         NOMFR = random.choice(TC.do_re_mi)
+        print('nomFr', end = ' : ')
+        print(NOMFR)
         ALT = random.choice(['dièse',
                              '',
                              'bémole'])
+        print('alt', end = ' : ')
+        print(ALT)
         CIBLE = random.choice([[5, 1],
                               [5, 1, -3, 1],
                               [-3, 1],
                               [-3, 1, 5, 1]])
+        print('cible', end = ' : ')
+        print(CIBLE)
         MODE = random.choice([TC.blues_m,
                              TC.blues_M,
                              TC.tonal_m,
                              TC.tonal_M])
+        print('mode', end = ' : ')
+        print(MODE)
         NOCTA = random.randint(2, 4)
+        print('nOcta', end = ' : ')
+        print(NOCTA)
         NBTPS = random.randint(2, 4)
+        print('nbTps', end = ' : ')
+        print(NBTPS)
         NBSTPS = random.randint(2, 4)
+        print('nbSTps', end = ' : ')
+        print(NBSTPS)
         PROBTOTAL = random.randint(60, 100)
+        print('probTotal', end = ' : ')
+        print(PROBTOTAL)
         PROBTPSFA = random.randint(10, 50)
+        print('brobTpsFa', end = ' : ')
+        print(PROBTPSFA)
+        print('brobTpsFo', end = ' : ')
         PROBTPSFO  = random.randint(60, 100)
+        print(PROBTPSFO)
 
         self.motif = SF.Motif(mode = MODE,
                               nomFr = NOMFR,

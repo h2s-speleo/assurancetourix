@@ -41,6 +41,10 @@ class Compo:
         self.longMax = kwargs.get('longMax', self.longMax)
         self.longMin = kwargs.get('longMin', self.longMin)
         self.cible = kwargs.get('cible', self.cible)
+#
+#        print('############################################################')
+#        print('solfege.Compo')
+#        print(self.__dict__)
 
     def Comp1(self):
         self.CompN1()

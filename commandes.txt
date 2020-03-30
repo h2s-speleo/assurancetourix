@@ -9,3 +9,5 @@ b = lecture en boucle
 p = recharge les parametre aléatoirement, crée une nouvelle sequence
 r = recrée une séquence en gardant les mêmes parametres
 i = info sur la séquence         (dans le terminal)
+
+n = en mode boucle, recréée une sequence en gardant les memes parametres a chaque répétition

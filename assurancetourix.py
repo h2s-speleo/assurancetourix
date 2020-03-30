@@ -15,5 +15,5 @@ IG = iGraph.Fenetre()
 
 subprocess.Popen.kill(serveurSon)
 """on tue le subprocess"""
-#exit()
+exit()
 """on quitte la terminal"""

@@ -18,3 +18,7 @@ class Melo:
 
         self.rythme = SF.Rythme()
         self.rythme.parent = self
+#
+#        print('############################################################')
+#        print('solfege.Melo')
+#        print(self.__dict__)

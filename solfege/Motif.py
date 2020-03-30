@@ -67,7 +67,7 @@ class Motif:
         self.nbTps = kwargs.get('nbTps', self.nbTps)
         self.nbSTps = kwargs.get('nbSTps', self.nbSTps)
 
-        self.probTotal = kwargs.get('probToal', self.probTotal)
+        self.probTotal = kwargs.get('probTotal', self.probTotal)
         self.probTpsFo = kwargs.get('probTpsFo', self.probTpsFo)
         self.probTpsFa = kwargs.get('probTpsFa', self.probTpsFa)
 
@@ -77,7 +77,11 @@ class Motif:
 
 
 
-        self.melo = SF.Melo(tonique = self.tonique)
+
+
+
+
+        self.melo = SF.Melo(tonique = self.tonique, mode = self.mode)
         self.melo.parent = self
 
 #        self.harmo = Harmo()
@@ -88,13 +92,17 @@ class Motif:
         self.mesure.parent = self
 
         self.compo = SF.Compo(probTotal = self.probTotal,
-                              probaTpsFa = self.probTpsFa,
-                              probaTpsFo = self.probTpsFo,
+                              probTpsFa = self.probTpsFa,
+                              probTpsFo = self.probTpsFo,
                               longMax = self.longMax,
                               longMin = self.longMin,
                               cible = self.cible)
         self.compo.parent = self
         self.compo.Comp1()
+#
+#        print('############################################################')
+#        print('solfege.Motif')
+#        print(self.__dict__)
 
     def info(self):
         print("#### tonalité #########################")

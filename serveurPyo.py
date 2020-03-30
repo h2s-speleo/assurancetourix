@@ -72,13 +72,13 @@ def noteon(voice):
     "Print pitch and velocity for noteon event."
     pit = int(notes["pitch"].get(all=True)[voice])
     vel = int(notes["velocity"].get(all=True)[voice] * 127)
-    print("Noteon: voice = %d, pitch = %d, velocity = %d" % (voice, pit, vel))
+#    print("Noteon: voice = %d, pitch = %d, velocity = %d" % (voice, pit, vel))
 
 def noteoff(voice):
     "Print pitch and velocity for noteoff event."
     pit = int(notes["pitch"].get(all=True)[voice])
     vel = int(notes["velocity"].get(all=True)[voice] * 127)
-    print("Noteoff: voice = %d, pitch = %d, velocity = %d" % (voice, pit, vel))
+#    print("Noteoff: voice = %d, pitch = %d, velocity = %d" % (voice, pit, vel))
 
 # TrigFunc calls a function when it receives a trigger. Because notes["trigon"]
 # contains 10 streams, there will be 10 caller, each one with its own argument,
