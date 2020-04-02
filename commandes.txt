@@ -1,13 +1,3 @@
- 
-espace = play
-Alt = pause
-entrée = stop
-haut = tempo +       (valide a partir de la prochaine sequence)
-bas = tempo -        (valide a partir de la prochaine sequence)
-b = lecture en boucle
-
-p = recharge les parametre aléatoirement, crée une nouvelle sequence
-r = recrée une séquence en gardant les mêmes parametres
-i = info sur la séquence         (dans le terminal)
-
-n = en mode boucle, recréée une sequence en gardant les memes parametres a chaque répétition
+ espace = joue une note (en appuy continu)
+haut = tempo +
+bas = tempo -

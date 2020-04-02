@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Python 3.8.2 (default, Feb 26 2020, 22:21:03)
+"""Python 3.8.2 (default, Feb 26 2020, 22:21:03)"""
 
 import os
 from signal import SIGTERM, SIGKILL
@@ -54,10 +54,11 @@ class Core():
         pygame.display.flip()
         #définition des attributs
         self.playing = 0 #sert a savoir si on joue ou pas
-        self.tempo = 150
+        self.tempo = 2000
         self.motif = SF.Motif()
         self.IG = assu.IGraph(self)
         self.OSC = assu.Osc(self)
+        
         METRO = USEREVENT + 1 #création d'un pygame event métronome
         pygame.time.set_timer(METRO, self.tempo)
         print('############## server boot / start ##############\n')
@@ -69,28 +70,18 @@ class Core():
                 if event.type == QUIT :      
                     qSon.put('break') #on casse la boucle de ServPyo
                     continuer = False #on casse la boucle de ServPyo
-                    
-                    
-                if event.type == KEYDOWN and event.key == K_SPACE:
-                    qSon.put('a = Sine(mul=0.1).out()')
-                    print('PLAY')
-                    
-                if event.type == KEYUP and event.key == K_SPACE:
-                    qSon.put('a.stop()')
-                    print('STOP')   
-                    
-                if event.type == KEYDOWN and event.key == K_DOWN:
-                    self.IG.tempoMoins()
-                    pygame.time.set_timer(METRO, self.tempo)
 
-
-                if event.type == KEYDOWN and event.key == K_UP:
-                    self.IG.tempoPlus()
-                    pygame.time.set_timer(METRO, self.tempo)
-                    
                 if event.type == METRO:
-                    print('.', end = '')
+##############################################################################
+######### exemple de message #################################################
+                    if self.playing == 0 :
+                        qSon.put('a = Sine(mul=0.1).out()') #on place le message dans la queue
+                        self.playing = 1
                     
+                    elif self.playing == 1 :
+                        qSon.put('a.stop()')
+                        self.playing = 0
+##############################################################################
                 
                 pygame.time.wait(1) #ralenti la boucle principale
  
@@ -113,4 +104,4 @@ if SP.is_alive():
     os.kill(pidServPyo, SIGKILL)
     print('KILL signal')
 print('fin')
-exit()
+#exit()
