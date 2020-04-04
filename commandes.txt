@@ -1,3 +1,10 @@
- espace = joue une note (en appuy continu)
+t = joue une note (en appuy continu)
 haut = tempo +
 bas = tempo -
+espace = play / pause
+entrée = stop
+b = boucle
+r = reset sequence
+p = reset les parametres avec des valeurs aléatoires + reset sequence
+a = autoreset, en mode boucle réinitialise la seauence apres chaque lecture
+

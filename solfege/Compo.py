@@ -61,7 +61,11 @@ class Compo:
             for j in range(len(GAMME)):
                 if GAMME[j].degre == listeDegre[i]:
                     self.parent.melo.rythme.listNote.append(GAMME[j])
-
+#        print('############################################################')
+#        for i in range(len(self.parent.melo.rythme.listNote)):
+#        
+#            print(self.parent.melo.rythme.listNote[i].degre)
+#        print('############################################################')    
     def CompR1(self):
         self.parent.melo.rythme.listRythme = list()
         compt  = 0
@@ -148,16 +152,14 @@ class Compo:
                 fin = self.parent.melo.rythme.listRythme[i]['position'] + self.parent.melo.rythme.listRythme[i]['duree']
 
                 self.parent.melo.rythme.listeMessag[debut]\
-                .append((
-                        self.parent.melo.rythme.listRythme[i]['note'].nMidi,
-                        "note_on",
-                        self.parent.melo.rythme.listRythme[i]['note']))
+                .append(("note_on",
+                        self.parent.melo.rythme.listRythme[i]['note'],
+                        'M'))
 
                 self.parent.melo.rythme.listeMessag[fin]\
-                .append((
-                        self.parent.melo.rythme.listRythme[i]['note'].nMidi,
-                        "note_off",
-                        self.parent.melo.rythme.listRythme[i]['note']))
+                .append(("note_off",
+                        self.parent.melo.rythme.listRythme[i]['note'],
+                        'M'))
 
     def info(self):
         print("probTotal : ", end = '')

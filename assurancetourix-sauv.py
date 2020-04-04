@@ -2,9 +2,8 @@
 # -*- coding: utf-8 -*-
 
 # Python 3.8.2 (default, Feb 26 2020, 22:21:03)
-#import sys
+
 import os
-import time
 from signal import SIGTERM, SIGKILL
 from multiprocessing import Process, freeze_support, Queue
 
@@ -14,18 +13,12 @@ from pyo import *
 
 import assu
 import solfege as SF
-#from solfege.TCores import TC
-
-
-#import sys
-#sys.stdout = open('stdout.txt', 'w')
-
-
+from solfege.TCores import TC
 
 # serveur pyo. execute les commandes envoyée dans la queue en str()
 # executé en parallèle
 def ServPyo():
-    
+    import time
     s = Server() #instanciation du serveur
     x = None
     inputs, outputs = pa_get_devices_infos() #récupération de la liste des périphériques
@@ -47,16 +40,13 @@ def ServPyo():
                 print ('COMMAND' , end = ' : ')
                 print(mes)
                 exec(mes) #on execute la commande passée en str()
-        time.sleep(0.001)#ralenti la boucle principale
+        time.sleep(0.003)#ralenti la boucle principale
     s.stop() #on coupe le serveur
     print('coupure Serveur Pyo')
 
 class Core():
-    
-    
     def __init__(self):
-        self.info(self)
-        
+        pygame.init() #on lance pygame
          #définition de la fenetre
         self.fenetre = pygame.display.set_mode((200, 200), RESIZABLE)
 ##############################################################################        
@@ -67,21 +57,21 @@ class Core():
         pygame.display.flip()
 ##############################################################################        
         
-
-        
+        print('############## server boot / start ##############\n')
+        pygame.time.wait(2000)
         self.METRO = USEREVENT + 1 #création d'un pygame event métronome
         #définition des attributs
-        
         self.qSon = qSon
         self.motif = SF.Motif()
         self.MESS = assu.Mess(self)
         self.IG = assu.IGraph(self)
-        self.info(self)
 
 
         pygame.time.set_timer(self.METRO, self.IGVar['tempo'])
         
-
+        
+#        self.MESS.putBasMess('init')
+        
         continuer = 1
         while continuer:
             for event in pygame.event.get():
@@ -126,66 +116,21 @@ class Core():
                 
                     
                 if event.type == self.METRO:
+                    
+#                    print('.', end = '')
                     self.MESS.putSeqMess()
                     
                 
-                pygame.time.wait(5) #ralenti la boucle principale
-                
-    def info(self, arg):
-#        print('##############################################################')
-#        print('INFO')
-#        
-#        for key, value in self.__dict__.items():
-#            print(arg)
-#            if type(value) == SF.Motif :
-#                print('MOTIF :')
-#                print(value.__dict__)
-#                print()
-#                
-#            if key == 'IGVar' :
-#                print('IGVar : ')
-#                for key2, value2 in value.items():
-#                    print(key2)
-#                    
-#                    if key2 == 'playing' or\
-#                    key2 == 'indiceMess' or\
-#                    key2 == 'longLisMess' or\
-#                    key2 == 'objPyoActif':
-#                        print(key2, end = ' : ')
-#                        print(value2)
-#                        print()
-#                    print()
-#                print()
-#                
-#            else :
-#                print(key, end = ' : ')
-#                print(value)
-#            
-#        print()
-#        print('##############################################################')
-        pass
-        
+                pygame.time.wait(20) #ralenti la boucle principale
  
 freeze_support()
 qSon = Queue() #création de la queue du serveur pyo
 SP = Process(target=ServPyo, daemon=True) #création du processus du serveur pyo
 SP.start()
 pidServPyo = SP.pid
-pygame.init() #on lance pygame
-
-
-millis = int(round(time.time() * 1000))
-print('############## server boot / start ##############\n')
-
-while millis + 3000 > int(round(time.time() * 1000)):
-    time.sleep(0.02)
-      
-      
-print('RUN')
 
 AS = Core() #instanciation de AC. fait office de boucle principale
 # fin de la boucle
-
 
 pygame.quit() #fin de pygame
 SP.join() #on attend la fin du processus du serveur pyo 
@@ -197,6 +142,6 @@ if SP.is_alive():
     os.kill(pidServPyo, SIGKILL)
     print('KILL signal')
 print('fin')
-##stayingAlive = input()
-#
+#stayingAlive = input()
+
 exit()

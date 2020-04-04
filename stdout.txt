@@ -1,0 +1,293 @@
+AS init D
+[4;33mReloaded modules[24m: __mp_main__, solfege.Melo, solfege.TCores, solfege.Note, solfege.Tonal, solfege.Compo, solfege.Mesure, solfege.Rythme, solfege.Motif, solfege, assu.IGraph, assu.Mess, assu[0m
+###################
+INFO
+<assu.Mess.Osc object at 0x7fa1bc1fee20>
+<assu.Mess.Osc object at 0x7fa1bc1fee20>
+<assu.Mess.Osc object at 0x7fa1bc1fee20>
+<assu.Mess.Osc object at 0x7fa1bc1fee20>
+##############################################################
+env init D
+env init
+##############################################################
+INFO
+<assu.Mess.Env object at 0x7fa1bc1feac0>
+<assu.Mess.Env object at 0x7fa1bc1feac0>
+<assu.Mess.Env object at 0x7fa1bc1feac0>
+<assu.Mess.Env object at 0x7fa1bc1feac0>
+##############################################################
+mess init
+##############################################################
+INFO
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+##############################################################
+igraph init D
+igraph randomParam D
+igraph restSeq D
+mess ResetMess D
+mess resetMess
+mess resMesM D
+env simpleAdes D
+env simpleAdes
+##############################################################
+INFO
+<assu.Mess.Env object at 0x7fa1bc1feac0>
+<assu.Mess.Env object at 0x7fa1bc1feac0>
+<assu.Mess.Env object at 0x7fa1bc1feac0>
+<assu.Mess.Env object at 0x7fa1bc1feac0>
+<assu.Mess.Env object at 0x7fa1bc1feac0>
+<assu.Mess.Env object at 0x7fa1bc1feac0>
+IGVar : 
+objPyoActif : {'init': ['adsrM = Adsr(attack=.5, decay=.3, sustain=.5, release=.4, dur=0, mul=.5)', 'envM = Port(adsrM, risetime=0.09, falltime=0.09)'], 'kill': ['envM.stop()', 'adsrM.stop()'], 'pause': ['adsrM.stop()'], 'play': [], 'nom': ['adsrM', 'envM']}
+
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 100
+
+##############################################################
+osc simpleSine D
+osc simpleSine
+##############################################################
+INFO
+<assu.Mess.Osc object at 0x7fa1bc1fee20>
+<assu.Mess.Osc object at 0x7fa1bc1fee20>
+<assu.Mess.Osc object at 0x7fa1bc1fee20>
+<assu.Mess.Osc object at 0x7fa1bc1fee20>
+<assu.Mess.Osc object at 0x7fa1bc1fee20>
+<assu.Mess.Osc object at 0x7fa1bc1fee20>
+IGVar : 
+objPyoActif : {'init': ['adsrM = Adsr(attack=.5, decay=.3, sustain=.5, release=.4, dur=0, mul=.5)', 'envM = Port(adsrM, risetime=0.09, falltime=0.09)', 'oscM = Sine(mul = envM)', 'oscM.out()'], 'kill': ['envM.stop()', 'adsrM.stop()', 'oscM.stop()'], 'pause': ['adsrM.stop()'], 'play': [], 'nom': ['adsrM', 'envM', 'oscM']}
+
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 100
+
+##############################################################
+mess resMesM
+##############################################################
+INFO
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+IGVar : 
+objPyoActif : {'init': ['adsrM = Adsr(attack=.5, decay=.3, sustain=.5, release=.4, dur=0, mul=.5)', 'envM = Port(adsrM, risetime=0.09, falltime=0.09)', 'oscM = Sine(mul = envM)', 'oscM.out()'], 'kill': ['envM.stop()', 'adsrM.stop()', 'oscM.stop()'], 'pause': ['adsrM.stop()'], 'play': [], 'nom': ['adsrM', 'envM', 'oscM']}
+
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 100
+
+##############################################################
+mess ResetMess
+##############################################################
+INFO
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+IGVar : 
+objPyoActif : {'init': ['adsrM = Adsr(attack=.5, decay=.3, sustain=.5, release=.4, dur=0, mul=.5)', 'envM = Port(adsrM, risetime=0.09, falltime=0.09)', 'oscM = Sine(mul = envM)', 'oscM.out()'], 'kill': ['envM.stop()', 'adsrM.stop()', 'oscM.stop()'], 'pause': ['adsrM.stop()'], 'play': [], 'nom': ['adsrM', 'envM', 'oscM']}
+
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 100
+
+##############################################################
+igraph restSeq
+##############################################################
+INFO
+<assu.IGraph.IGraph object at 0x7fa1bc1feb80>
+<assu.IGraph.IGraph object at 0x7fa1bc1feb80>
+<assu.IGraph.IGraph object at 0x7fa1bc1feb80>
+<assu.IGraph.IGraph object at 0x7fa1bc1feb80>
+<assu.IGraph.IGraph object at 0x7fa1bc1feb80>
+<assu.IGraph.IGraph object at 0x7fa1bc1feb80>
+IGVar : 
+objPyoActif : {'init': ['adsrM = Adsr(attack=.5, decay=.3, sustain=.5, release=.4, dur=0, mul=.5)', 'envM = Port(adsrM, risetime=0.09, falltime=0.09)', 'oscM = Sine(mul = envM)', 'oscM.out()'], 'kill': ['envM.stop()', 'adsrM.stop()', 'oscM.stop()'], 'pause': ['adsrM.stop()'], 'play': [], 'nom': ['adsrM', 'envM', 'oscM']}
+
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 100
+
+##############################################################
+igraph randomParam
+##############################################################
+INFO
+<assu.IGraph.IGraph object at 0x7fa1bc1feb80>
+<assu.IGraph.IGraph object at 0x7fa1bc1feb80>
+<assu.IGraph.IGraph object at 0x7fa1bc1feb80>
+<assu.IGraph.IGraph object at 0x7fa1bc1feb80>
+<assu.IGraph.IGraph object at 0x7fa1bc1feb80>
+<assu.IGraph.IGraph object at 0x7fa1bc1feb80>
+IGVar : 
+objPyoActif : {'init': ['adsrM = Adsr(attack=.5, decay=.3, sustain=.5, release=.4, dur=0, mul=.5)', 'envM = Port(adsrM, risetime=0.09, falltime=0.09)', 'oscM = Sine(mul = envM)', 'oscM.out()'], 'kill': ['envM.stop()', 'adsrM.stop()', 'oscM.stop()'], 'pause': ['adsrM.stop()'], 'play': [], 'nom': ['adsrM', 'envM', 'oscM']}
+
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 100
+
+##############################################################
+mess ResetMess D
+mess resetMess
+mess resMesM D
+env simpleAdes D
+env simpleAdes
+##############################################################
+INFO
+<assu.Mess.Env object at 0x7fa1bc1feac0>
+<assu.Mess.Env object at 0x7fa1bc1feac0>
+<assu.Mess.Env object at 0x7fa1bc1feac0>
+<assu.Mess.Env object at 0x7fa1bc1feac0>
+<assu.Mess.Env object at 0x7fa1bc1feac0>
+<assu.Mess.Env object at 0x7fa1bc1feac0>
+IGVar : 
+objPyoActif : {'init': ['adsrM = Adsr(attack=.5, decay=.3, sustain=.5, release=.4, dur=0, mul=.5)', 'envM = Port(adsrM, risetime=0.09, falltime=0.09)'], 'kill': ['envM.stop()', 'adsrM.stop()'], 'pause': ['adsrM.stop()'], 'play': [], 'nom': ['adsrM', 'envM']}
+
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 100
+
+##############################################################
+osc simpleSine D
+osc simpleSine
+##############################################################
+INFO
+<assu.Mess.Osc object at 0x7fa1bc1fee20>
+<assu.Mess.Osc object at 0x7fa1bc1fee20>
+<assu.Mess.Osc object at 0x7fa1bc1fee20>
+<assu.Mess.Osc object at 0x7fa1bc1fee20>
+<assu.Mess.Osc object at 0x7fa1bc1fee20>
+<assu.Mess.Osc object at 0x7fa1bc1fee20>
+IGVar : 
+objPyoActif : {'init': ['adsrM = Adsr(attack=.5, decay=.3, sustain=.5, release=.4, dur=0, mul=.5)', 'envM = Port(adsrM, risetime=0.09, falltime=0.09)', 'oscM = Sine(mul = envM)', 'oscM.out()'], 'kill': ['envM.stop()', 'adsrM.stop()', 'oscM.stop()'], 'pause': ['adsrM.stop()'], 'play': [], 'nom': ['adsrM', 'envM', 'oscM']}
+
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 100
+
+##############################################################
+mess resMesM
+##############################################################
+INFO
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+IGVar : 
+objPyoActif : {'init': ['adsrM = Adsr(attack=.5, decay=.3, sustain=.5, release=.4, dur=0, mul=.5)', 'envM = Port(adsrM, risetime=0.09, falltime=0.09)', 'oscM = Sine(mul = envM)', 'oscM.out()'], 'kill': ['envM.stop()', 'adsrM.stop()', 'oscM.stop()'], 'pause': ['adsrM.stop()'], 'play': [], 'nom': ['adsrM', 'envM', 'oscM']}
+
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 100
+
+##############################################################COMMAND : adsrM = Adsr(attack=.5, decay=.3, sustain=.5, release=.4, dur=0, mul=.5)
+COMMAND : envM = Port(adsrM, risetime=0.09, falltime=0.09)
+COMMAND : oscM = Sine(mul = envM)
+COMMAND : oscM.out()
+coupure Serveur Pyo
+
+mess ResetMess
+##############################################################
+INFO
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+IGVar : 
+objPyoActif : {'init': ['adsrM = Adsr(attack=.5, decay=.3, sustain=.5, release=.4, dur=0, mul=.5)', 'envM = Port(adsrM, risetime=0.09, falltime=0.09)', 'oscM = Sine(mul = envM)', 'oscM.out()'], 'kill': ['envM.stop()', 'adsrM.stop()', 'oscM.stop()'], 'pause': ['adsrM.stop()'], 'play': [], 'nom': ['adsrM', 'envM', 'oscM']}
+
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 100
+
+##############################################################
+mess putBaseMess D
+mess putBaseMess
+##############################################################
+INFO
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+<assu.Mess.Mess object at 0x7fa1bc1fef10>
+IGVar : 
+objPyoActif : {'init': ['adsrM = Adsr(attack=.5, decay=.3, sustain=.5, release=.4, dur=0, mul=.5)', 'envM = Port(adsrM, risetime=0.09, falltime=0.09)', 'oscM = Sine(mul = envM)', 'oscM.out()'], 'kill': ['envM.stop()', 'adsrM.stop()', 'oscM.stop()'], 'pause': ['adsrM.stop()'], 'play': [], 'nom': ['adsrM', 'envM', 'oscM']}
+
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 100
+
+##############################################################
+igraph init
+##############################################################
+INFO
+<assu.IGraph.IGraph object at 0x7fa1bc1feb80>
+<assu.IGraph.IGraph object at 0x7fa1bc1feb80>
+<assu.IGraph.IGraph object at 0x7fa1bc1feb80>
+<assu.IGraph.IGraph object at 0x7fa1bc1feb80>
+<assu.IGraph.IGraph object at 0x7fa1bc1feb80>
+<assu.IGraph.IGraph object at 0x7fa1bc1feb80>
+IGVar : 
+objPyoActif : {'init': ['adsrM = Adsr(attack=.5, decay=.3, sustain=.5, release=.4, dur=0, mul=.5)', 'envM = Port(adsrM, risetime=0.09, falltime=0.09)', 'oscM = Sine(mul = envM)', 'oscM.out()'], 'kill': ['envM.stop()', 'adsrM.stop()', 'oscM.stop()'], 'pause': ['adsrM.stop()'], 'play': [], 'nom': ['adsrM', 'envM', 'oscM']}
+
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 100
+
+##############################################################
+##############################################################
+INFO
+<__main__.Core object at 0x7fa1d83e8070>
+<__main__.Core object at 0x7fa1d83e8070>
+<__main__.Core object at 0x7fa1d83e8070>
+<__main__.Core object at 0x7fa1d83e8070>
+<__main__.Core object at 0x7fa1d83e8070>
+<__main__.Core object at 0x7fa1d83e8070>
+IGVar : 
+objPyoActif : {'init': ['adsrM = Adsr(attack=.5, decay=.3, sustain=.5, release=.4, dur=0, mul=.5)', 'envM = Port(adsrM, risetime=0.09, falltime=0.09)', 'oscM = Sine(mul = envM)', 'oscM.out()'], 'kill': ['envM.stop()', 'adsrM.stop()', 'oscM.stop()'], 'pause': ['adsrM.stop()'], 'play': [], 'nom': ['adsrM', 'envM', 'oscM']}
+
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 100
+
+<__main__.Core object at 0x7fa1d83e8070>
+##############################################################
+fin

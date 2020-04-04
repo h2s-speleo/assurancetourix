@@ -1,0 +1,986 @@
+AS init D
+##############################################################
+INFO
+##############################################################
+mess init D
+osc init D
+osc init
+##############################################################
+INFO
+##############################################################
+env init D
+env init
+##############################################################
+INFO
+##############################################################
+mess init
+##############################################################
+INFO
+##############################################################
+igraph init D
+igraph randomParam D
+igraph restSeq D
+mess ResetMess D
+mess resetMess
+mess resMesM D
+env simpleAdes D
+env simpleAdes
+##############################################################
+INFO
+IGVar : 
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 121
+
+##############################################################
+osc simpleSine D
+osc simpleSine
+##############################################################
+INFO
+IGVar : 
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 121
+
+##############################################################
+mess resMesM
+##############################################################
+INFO
+IGVar : 
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 121
+
+##############################################################
+mess ResetMess
+##############################################################
+INFO
+IGVar : 
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 121
+
+##############################################################
+igraph restSeq
+##############################################################
+INFO
+IGVar : 
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 121
+
+##############################################################
+igraph randomParam
+##############################################################
+INFO
+IGVar : 
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 121
+
+##############################################################
+mess ResetMess D
+mess resetMess
+mess resMesM D
+env simpleAdes D
+env simpleAdes
+##############################################################
+INFO
+IGVar : 
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 121
+
+##############################################################
+osc simpleSine D
+osc simpleSine
+##############################################################
+INFO
+IGVar : 
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 121
+
+##############################################################
+mess resMesM
+##############################################################
+INFO
+IGVar : 
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 121
+
+##############################################################
+mess ResetMess
+##############################################################
+INFO
+IGVar : 
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 121
+
+##############################################################
+mess putBaseMess D
+mess putBaseMess
+##############################################################
+INFO
+IGVar : 
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 121
+
+##############################################################
+igraph init
+##############################################################
+INFO
+IGVar : 
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 121
+
+##############################################################
+##############################################################
+INFO
+IGVar : 
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 121
+
+##############################################################
+igraph playpause D
+mess putBaseMess D
+mess putBaseMess
+##############################################################
+INFO
+IGVar : 
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 121
+
+##############################################################
+PLAY
+igraph playpause
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 0
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 1
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 2
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 3
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 4
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 5
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 6
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 7
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 8
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 9
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 10
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 11
+
+longLisMess : 121
+
+##############################################################
+PLAY
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 12
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 13
+
+longLisMess : 121
+
+##############################################################
+STOP
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 14
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 15
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 16
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 17
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 18
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 19
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 20
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 21
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 22
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 23
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 24
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 25
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 26
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 27
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 28
+
+longLisMess : 121
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 29
+
+longLisMess : 121
+
+##############################################################
+igraph playpause D
+mess putBaseMess D
+mess putBaseMess
+##############################################################
+INFO
+IGVar : 
+playing : 0
+
+indiceMess : 29
+
+longLisMess : 121
+
+##############################################################
+PAUSE
+igraph playpause
+##############################################################
+INFO
+IGVar : 
+playing : 0
+
+indiceMess : 29
+
+longLisMess : 121
+
+##############################################################
+igraph restSeq D
+mess ResetMess D
+mess resetMess
+mess resMesM D
+env simpleAdes D
+env simpleAdes
+##############################################################
+INFO
+IGVar : 
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 37
+
+##############################################################
+osc simpleSine D
+osc simpleSine
+##############################################################
+INFO
+IGVar : 
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 37
+
+##############################################################
+mess resMesM
+##############################################################
+INFO
+IGVar : 
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 37
+
+##############################################################
+mess ResetMess
+##############################################################
+INFO
+IGVar : 
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 37
+
+##############################################################
+igraph restSeq
+##############################################################
+INFO
+IGVar : 
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 37
+
+##############################################################
+igraph playpause D
+mess putBaseMess D
+mess putBaseMess
+##############################################################
+INFO
+IGVar : 
+playing : 0
+
+indiceMess : 0
+
+longLisMess : 37
+
+##############################################################
+PLAY
+igraph playpause
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 0
+
+longLisMess : 37
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 1
+
+longLisMess : 37
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 2
+
+longLisMess : 37
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 3
+
+longLisMess : 37
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 4
+
+longLisMess : 37
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 5
+
+longLisMess : 37
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 6
+
+longLisMess : 37
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 7
+
+longLisMess : 37
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 8
+
+longLisMess : 37
+
+##############################################################
+IGraph boucle D
+IGraph boucle
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 8
+
+longLisMess : 37
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 9
+
+longLisMess : 37
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 10
+
+longLisMess : 37
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 11
+
+longLisMess : 37
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 12
+
+longLisMess : 37
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 13
+
+longLisMess : 37
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 14
+
+longLisMess : 37
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 15
+
+longLisMess : 37
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 16
+
+longLisMess : 37
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 17
+
+longLisMess : 37
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################COMMAND : adsrM = Adsr(attack=.5, decay=.3, sustain=.5, release=.4, dur=0, mul=.5)
+COMMAND : envM = Port(adsrM, risetime=0.09, falltime=0.09)
+COMMAND : oscM = Sine(mul = envM)
+COMMAND : oscM.out()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(52))
+COMMAND : a = Sine(mul=0.1).out()
+COMMAND : a.stop()
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(51))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(51))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(49))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(47))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(52))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(49))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(47))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(45))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(49))
+coupure Serveur Pyo
+
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 18
+
+longLisMess : 37
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 19
+
+longLisMess : 37
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 20
+
+longLisMess : 37
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 21
+
+longLisMess : 37
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 22
+
+longLisMess : 37
+
+##############################################################
+mess putSeqMess D
+mess putSeqMess
+##############################################################
+INFO
+IGVar : 
+playing : 1
+
+indiceMess : 23
+
+longLisMess : 37
+
+##############################################################
+fin
