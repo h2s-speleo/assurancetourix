@@ -11,20 +11,23 @@ from multiprocessing import Process, freeze_support, Queue
 import pygame
 from pygame.locals import *
 from pyo import *
-
+ 
 import assu
 import solfege as SF
 #from solfege.TCores import TC
 
-
+#
 #import sys
-#sys.stdout = open('stdout.txt', 'w')
+#sys.stdout = open('stdout.log', 'w')
 
 
 
 # serveur pyo. execute les commandes envoyée dans la queue en str()
 # executé en parallèle
 def ServPyo():
+    
+
+    
     
     s = Server() #instanciation du serveur
     x = None
@@ -44,9 +47,12 @@ def ServPyo():
             if mes == 'break':
                 break #fin de la boucle infinie
             else :
-                print ('COMMAND' , end = ' : ')
-                print(mes)
+
+#                print ('COMMAND' , end = ' : ')
+                
+#                print(mes)
                 exec(mes) #on execute la commande passée en str()
+
         time.sleep(0.001)#ralenti la boucle principale
     s.stop() #on coupe le serveur
     print('coupure Serveur Pyo')
@@ -126,10 +132,11 @@ class Core():
                 
                     
                 if event.type == self.METRO:
+                    
                     self.MESS.putSeqMess()
                     
                 
-                pygame.time.wait(5) #ralenti la boucle principale
+                pygame.time.wait(20) #ralenti la boucle principale
                 
     def info(self, arg):
 #        print('##############################################################')
@@ -171,16 +178,17 @@ qSon = Queue() #création de la queue du serveur pyo
 SP = Process(target=ServPyo, daemon=True) #création du processus du serveur pyo
 SP.start()
 pidServPyo = SP.pid
-pygame.init() #on lance pygame
+
 
 
 millis = int(round(time.time() * 1000))
 print('############## server boot / start ##############\n')
 
-while millis + 3000 > int(round(time.time() * 1000)):
-    time.sleep(0.02)
+#while millis + 3000 > int(round(time.time() * 1000)):
+time.sleep(2)
       
       
+pygame.init() #on lance pygame    
 print('RUN')
 
 AS = Core() #instanciation de AC. fait office de boucle principale

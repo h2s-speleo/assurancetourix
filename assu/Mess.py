@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from pyo import *
+import time
 
 
 class Mess():
@@ -13,7 +14,9 @@ class Mess():
         self.ENV = Env(arg)
         self.osc = "simpleSine"
         self.env = "simpleAdsr"
-        self.AS.info(self)
+        #self.AS.info(self)  
+        self.millis = int(round(time.time() * 1000))
+
         
         
     def ResetMess(self, **kwargs):
@@ -40,7 +43,7 @@ class Mess():
         if 'M' in self.AS.IGVar['listeVoix'] :
             self.ResMesM()
  
-        self.AS.info(self)  
+    ##    self.AS.info(self)  
             
     def ResMesM(self):
         print('RESET MESSAGE MELODIE')
@@ -68,43 +71,52 @@ class Mess():
 #                print(self.AS.IGVar['listeMess'][i][j])
 #            print()
 
-        self.AS.info(self)
+#        self.AS.info(self)
             
     def putBasMess(self, typ ):
-        print('PUT BASE MESAGE')
+        print('PUT BASE MESAGE : ' + str(typ))
         for i in range(len(self.AS.IGVar['objPyoActif'][typ])):
             self.AS.qSon.put(self.AS.IGVar['objPyoActif'][typ][i])
+            print('-----------------------------------------')
+            print(self.millis - int(round(time.time() * 1000)), end = ' : ')
+            print(self.AS.IGVar['objPyoActif'][typ][i])
+            self.millis = int(round(time.time() * 1000))  
         
-        self.AS.info(self)
+#        self.AS.info(self)
             
     def putSeqMess(self):
         
         
         if self.AS.IGVar['playing']== 1:
+            
 
             if self.AS.IGVar['indiceMess'] >=  self.AS.IGVar['longLisMess'] :
                 self.AS.IG.Stop()
             else:
-
-    
                 pas = self.AS.IGVar['listeMess'][self.AS.IGVar['indiceMess']]
+#                print(self.millis - int(round(time.time() * 1000)))
+#                self.millis = int(round(time.time() * 1000))
                 if len(pas) > 0:
+#                    print(self.millis - int(round(time.time() * 1000)))
+#                    self.millis = int(round(time.time() * 1000))    
                     for i in range(len(pas)):
-                        
-                        
-
-
+                        print('-----------------------------------------')
+                        print(self.millis - int(round(time.time() * 1000)), end = ' : ')
+                        print(pas[i])
+                        self.millis = int(round(time.time() * 1000))  
                         self.AS.qSon.put(pas[i])
+                          
+                        
             self.AS.IGVar['indiceMess'] = self.AS.IGVar['indiceMess'] + 1
 
-            self.AS.info(self)
+#            self.AS.info(self)
 class Osc():
 
     def __init__(self, arg):
 
         self.AS = arg
 
-        self.AS.info(self)
+        #self.AS.info(self)  
         
         
     def SimpleSine(self, voix):
@@ -115,15 +127,28 @@ class Osc():
 #        .append('oscM = Sine(mul = Sine( mul =envM))')
 #        .append('oscM = Phaser(Sine(mul = Sine( mul =envM)))')
 #         .append('oscM = LFO(mul = envM, type=7)')
+#        .append('oscM = SineLoop(mul = envM)')       
+#        .append('oscM = Sine(freq = [440,440], mul = LFO(mul = envM, type=2, freq = 50))') 
         
+#           .append('filtre = WGVerb(MoogLP(oscM,freq= oscM._freq[-1])).out()')
+######################################################################################        
+#        .append('filtre = Waveguide(Disto(MoogLP(oscM,freq= oscM._freq[0]))).out()')    
+#        .append('filtre = STRev(Waveguide(Disto(MoogLP(oscM,freq= oscM._freq[0])))).out()')
+#        .append('filtre = Waveguide(Chorus(Disto(MoogLP(oscM,freq= oscM._freq[0])))).out()')
+#        .append('filtre = Waveguide(FreqShift(Disto(MoogLP(oscM,freq= oscM._freq[0])))).out()')
+#        .append('filtre = Waveguide(WGVerb(Chorus(Disto(MoogLP(oscM,freq= oscM._freq[0]))))).out()')
+#        .append('filtre = Waveguide(Harmonizer(Chorus(Disto(MoogLP(oscM,freq= oscM._freq[0]))))).out()')
+#        .append('filtre = Waveguide(STRev(Chorus(Disto(MoogLP(oscM,freq= oscM._freq[0]))))).out()')
+
         
+######################################################################################
         
         self.AS.IGVar['objPyoActif']['nom']\
         .append('oscM')
         self.AS.IGVar['objPyoActif']['init']\
-        .append('oscM = SineLoop(mul = envM)')
+        .append('oscM = Sine(freq = [440,440], mul = LFO(mul = envM, type=7, freq = 200))')  
         self.AS.IGVar['objPyoActif']['init']\
-        .append('oscM.out()')
+        .append('filtre = Waveguide(Harmonizer(Disto(MoogLP(oscM,freq= oscM._freq[-1])))).out()')
         self.AS.IGVar['objPyoActif']['kill']\
         .append('oscM.stop()')
 #        self.AS.IGVar['objPyoActif']['pause']\
@@ -141,21 +166,21 @@ class Osc():
             if len(pas) > 0:
                 for j in range(len(pas)):
                     if pas[j][2] == voix :
-                        FREQ =  str(pas[j][1].nMidi)
+                        FREQ =  pas[j][1].nMidi
 
                         if pas[j][0] == 'note_on':
-                            mess = str(OSC+'.setFreq(midiToHz(' + FREQ + '))')
+                            mess = str(OSC+'.setFreq(midiToHz([' + str(FREQ) +' , ' + str(FREQ+ 4) + ' , ' + str(FREQ+ 7) +']))')      
                             self.AS.IGVar['listeMess'][i].append(mess)
 
 
-        self.AS.info(self)  
+    ##    #self.AS.info(self)    
 
 class Env():
     
     def __init__(self, arg):
         self.AS = arg
 
-        self.AS.info(self)
+        #self.AS.info(self)  
         
     
     def simpleAdsr(self, voix):
@@ -166,9 +191,9 @@ class Env():
         self.AS.IGVar['objPyoActif']['nom']\
         .append('envM')
         self.AS.IGVar['objPyoActif']['init']\
-        .append('adsrM = Adsr(attack=1, decay=.5, sustain=.5, release=.4, dur=0, mul=1)')
+        .append('adsrM = Adsr(attack=.1, decay=.2, sustain=.5, release=.4, dur=0, mul=1)')
         self.AS.IGVar['objPyoActif']['init']\
-        .append('envM = Port(adsrM, risetime=0.01, falltime=0.05)')
+        .append('envM = Port(adsrM, risetime=2, falltime=0.5)')
         self.AS.IGVar['objPyoActif']['kill']\
         .append('envM.stop()')
         self.AS.IGVar['objPyoActif']['kill']\
@@ -194,4 +219,4 @@ class Env():
                             self.AS.IGVar['listeMess'][i].append(mess)
             
 
-        self.AS.info(self)
+        #self.AS.info(self)  

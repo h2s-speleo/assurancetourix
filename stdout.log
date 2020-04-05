@@ -1,0 +1,246 @@
+COMMAND : adsrM = Adsr(attack=1, decay=.5, sustain=.5, release=.4, dur=0, mul=1)
+COMMAND : envM = Port(adsrM, risetime=0.01, falltime=0.05)
+COMMAND : oscM = Sine(mul = Sine(mul = envM))
+COMMAND : filtre = Biquad(Tone(oscM,)).out()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(72))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(71))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(67))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(69))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(71))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(71))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(67))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(67))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(71))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(67))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(69))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(65))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(69))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(67))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(67))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(69))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(69))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(71))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(74))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(71))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(69))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(71))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(67))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(71))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(67))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(67))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(69))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(71))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(72))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(76))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(77))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(76))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(74))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(74))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(76))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(74))
+COMMAND : adsrM.stop()
+COMMAND : adsrM.play()
+COMMAND : oscM.setFreq(midiToHz(77))
+coupure Serveur Pyo
+############## server boot / start ##############
+
+RUN
+RANDOM PARAM
+nomFr : do
+alt : 
+cible : [-3, 1, 5, 1]
+mode : (2, 2, 1, 2, 2, 2, 1)
+nOcta : 4
+nbTps : 4
+nbSTps : 2
+probTotal : 89
+brobTpsFa : 23
+brobTpsFo : 75
+RESET SEQUENCE
+RESET MESSAGE
+RESET MESSAGE MELODIE
+RESET MESSAGE
+RESET MESSAGE MELODIE
+PUT BASE MESAGE
+BOUCLE ON
+PUT BASE MESAGE
+PLAY
+-5580
+-115
+-150
+-149
+-150
+-151
+-149
+-151
+-156
+-144
+-149
+-150
+-150
+-150
+-151
+-150
+-151
+-148
+-150
+-150
+-243
+-60
+-148
+-149
+-150
+-150
+-150
+-152
+-149
+-150
+-150
+-150
+-149
+-150
+-151
+-151
+-149
+-149
+-150
+-150
+-150
+-151
+-150
+-149
+-151
+-149
+-151
+-150
+-150
+-151
+-148
+-150
+-150
+-150
+-151
+-150
+-151
+-148
+-151
+-149
+-150
+-151
+-150
+-150
+-149
+-150
+-150
+-151
+-150
+-150
+-149
+-150
+-151
+-150
+-151
+-150
+-149
+-149
+-150
+-150
+-150
+-151
+-151
+-148
+-150
+-150
+-150
+-152
+-149
+-150
+-149
+-151
+-149
+-150
+-151
+-151
+-149
+-149
+-150
+-150
+-150
+-152
+-149
+-149
+-150
+-151
+-149
+fin
