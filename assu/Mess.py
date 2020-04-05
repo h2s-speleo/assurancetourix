@@ -142,13 +142,35 @@ class Osc():
 
         
 ######################################################################################
+#self.AS.IGVar['objPyoActif']['init']\
+#.append('oscM = Sine(freq = [440,440], mul = LFO(mul = envM, type=7, freq = 200))')  
+#.self.AS.IGVar['objPyoActif']['init']\
+#.append('filtre = Waveguide(Harmonizer(Disto(MoogLP(oscM,freq= oscM._freq[0])))).out()')
+#.append('filtre = STRev(Waveguide(Disto(MoogLP(oscM,freq= oscM._freq[0])))).out()')
+
+
+######################################################################################
+#        self.AS.IGVar['objPyoActif']['nom']\
+ #       .append('oscM')
+  #      self.AS.IGVar['objPyoActif']['init']\
+   #     .append('oscM = Sine(freq = [440,600], mul = (LFO(mul = envM, type=2, freq = 200)))')  
+    #    self.AS.IGVar['objPyoActif']['init']\
+     #   .append('signal = MoogLP(oscM.mix(),oscM._freq[0])')
+      #  self.AS.IGVar['objPyoActif']['init']\
+       # .append('filtre = Waveguide(Harmonizer(Disto(signal))).out()')
+        #self.AS.IGVar['objPyoActif']['kill']\
+        #.append('oscM.stop()')
+
+######################################################################################
         
         self.AS.IGVar['objPyoActif']['nom']\
         .append('oscM')
         self.AS.IGVar['objPyoActif']['init']\
-        .append('oscM = Sine(freq = [440,440], mul = LFO(mul = envM, type=7, freq = 200))')  
+        .append('oscM = Sine(freq = [440,600], mul = (LFO(mul = envM, type=2, freq = 200)))')  
         self.AS.IGVar['objPyoActif']['init']\
-        .append('filtre = Waveguide(Harmonizer(Disto(MoogLP(oscM,freq= oscM._freq[-1])))).out()')
+        .append('signal = MoogLP(oscM.mix(),oscM._freq[0])')
+        self.AS.IGVar['objPyoActif']['init']\
+        .append('filtre = Waveguide(Harmonizer(Disto(ComplexRes(signal)))).out()')
         self.AS.IGVar['objPyoActif']['kill']\
         .append('oscM.stop()')
 #        self.AS.IGVar['objPyoActif']['pause']\
@@ -169,8 +191,11 @@ class Osc():
                         FREQ =  pas[j][1].nMidi
 
                         if pas[j][0] == 'note_on':
-                            mess = str(OSC+'.setFreq(midiToHz([' + str(FREQ) +' , ' + str(FREQ+ 4) + ' , ' + str(FREQ+ 7) +']))')      
+                            mess = str(OSC+'.setFreq(midiToHz([' + str(FREQ) +' , ' + str(FREQ+ 3) + ' , ' + str(FREQ+ 7) +']))')      
                             self.AS.IGVar['listeMess'][i].append(mess)
+                            mess = str('signal.setFreq(oscM._freq[0]-50)')      
+                            self.AS.IGVar['listeMess'][i].append(mess)
+
 
 
     ##    #self.AS.info(self)    
@@ -191,9 +216,9 @@ class Env():
         self.AS.IGVar['objPyoActif']['nom']\
         .append('envM')
         self.AS.IGVar['objPyoActif']['init']\
-        .append('adsrM = Adsr(attack=.1, decay=.2, sustain=.5, release=.4, dur=0, mul=1)')
+        .append('adsrM = Adsr(attack=.1, decay=.5, sustain=.2, release=.4, dur=0)')
         self.AS.IGVar['objPyoActif']['init']\
-        .append('envM = Port(adsrM, risetime=2, falltime=0.5)')
+        .append('envM = Port(adsrM, risetime=2, falltime=1)')
         self.AS.IGVar['objPyoActif']['kill']\
         .append('envM.stop()')
         self.AS.IGVar['objPyoActif']['kill']\
