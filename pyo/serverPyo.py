@@ -5,27 +5,12 @@ Created on Wed Apr  8 22:16:00 2020
 
 @author: j
 """
-import pika
+import os
+import time
 from signal import SIGTERM, SIGKILL
 from multiprocessing import Process, freeze_support, JoinableQueue
-import time
+import pika
 from pyo import *
-
-connection = pika.BlockingConnection(
-    pika.ConnectionParameters(host='localhost'))
-channel = connection.channel()
-channel.queue_declare(queue='hello')
-
-def callback(ch, method, properties, body):
-    mess = body.decode('ascii')
-    print(mess)
-    qSon.put(mess)
-    qSon.join()
-    print('done')
-    if mess == 'break' :
-        channel.stop_consuming()
-    
-    
 
 def ServPyo():
     s = Server() #instanciation du serveur
@@ -38,48 +23,60 @@ def ServPyo():
         print('default device')
         x = 1
     s.setOutputDevice(x) #définition de la sortie audio du serveur
-    s.boot()
     
     while True :
         if not qSon.empty(): #si on a quelquechose dans la queue
             mes = qSon.get()
-            
+            print(mes)
             if mes == 'break':
-                qSon.task_done()
                 break #fin de la boucle infinie
             else :
-
                 exec(mes) #on execute la commande passée en str()
-                qSon.task_done()
+            qSon.task_done()    
         time.sleep(0.001)#ralenti la boucle principale
+        
     s.stop() #on coupe le serveur
+    qSon.task_done()
     print('coupure Serveur Pyo')
 
+def on_request(ch, method, props, body):
+    mess = body.decode('ascii')
+    qSon.put(mess)
+    qSon.join()
 
+    ch.basic_publish(exchange='',
+                     routing_key=props.reply_to,
+                     properties=pika.BasicProperties(correlation_id = props.correlation_id),
+                     body=str('done : ' + str(mess)))
+    ch.basic_ack(delivery_tag=method.delivery_tag)
+    
+    if mess == 'break' :
+        channel.stop_consuming()
 
 freeze_support()
 qSon = JoinableQueue() #création de la queue du serveur pyo
 SP = Process(target=ServPyo, daemon=True) #création du processus du serveur pyo
 SP.start()
 pidServPyo = SP.pid
+while not qSon.empty():
+    qSon.get()
+listeInit = ['s.boot()','s.start()']
+for i in range(len(listeInit)):
+    qSon.put(listeInit[i])
+    qSon.join() 
 
+connection = pika.BlockingConnection(
+    pika.ConnectionParameters(host='localhost'))
+channel = connection.channel()
+channel.queue_declare(queue='rpcPyo')
+channel.queue_purge(queue = 'rpcPyo')
+channel.basic_qos(prefetch_count=1)
 
-
-channel.basic_consume(
-    queue='hello', on_message_callback=callback, auto_ack=True)
-
-qSon.put('s.start()')
-qSon.join()
-
+channel.basic_consume(queue='rpcPyo', on_message_callback=on_request)
 print('____________________________________________')
-
-
-print(' [*] Waiting for messages. To exit press CTRL+C')
-
 channel.start_consuming()
 
 qSon.put('break')
-
 SP.join() #on attend la fin du processus du serveur pyo 
 SP.terminate() #on supprime le processus du serveur pyo 
 if SP.is_alive():
