@@ -5,29 +5,25 @@ Created on Wed Apr  8 19:04:55 2020
 
 @author: j
 """
-
 import os
 from signal import SIGTERM, SIGKILL
 import uuid
 import time
 import subprocess
+from pickle import load
+from io import BytesIO
 import pika
 
 class PyoClient(object):
-
     def __init__(self):
-        
-        
+        self.etatConn = 0
         self.millisEnv = int(round(time.time() * 1000))
         self.enAttente = 0
         self.run()
     
     def run(self):
-
         self.RPC = subprocess.Popen('./serverPyo.py')
-        
         time.sleep(1)
-        
         self.connection = pika.BlockingConnection(
             pika.ConnectionParameters(host='localhost'))
         self.channel = self.connection.channel()
@@ -41,7 +37,7 @@ class PyoClient(object):
         self.pidRPC = self.RPC.pid
         temp = self.send("GETPID")
         self.pidServPyo = temp[1]
-        
+        self.etatConn = 1
         print('server run')
 
     def on_response(self, ch, method, props, body):
@@ -55,10 +51,8 @@ class PyoClient(object):
             routing_key='rpcPyo',
             properties=pika.BasicProperties(
                 reply_to=self.callback_queue,
-                correlation_id=self.corr_id,
-            ),
-            body=str(n))
-        
+                correlation_id=self.corr_id),
+                body=str(n))
         self.response = 'en attente'
         self.enAttente = 1
         self.millisEnv = int(round(time.time() * 1000))
@@ -70,7 +64,7 @@ class PyoClient(object):
             if attente > 500 :
                 self.enAttente = 0 
                 print('erreur')
-                return 'comm###erreur'
+                return 'erreur'
             elif self.response == 'en attente' :
                 self.connection.process_data_events()
                 return 'en attente'
@@ -81,51 +75,48 @@ class PyoClient(object):
             return 'rien a faire'
         
     def send(self, comm):
-        print(comm)
-    
         print(comm, end = ' ')
         self.call(comm)
         while True :
             response = self.checkReponse()
-            if response != 'rien a faire' and response != 'en attente':
-                if type(response) == bytes :
-                    response = response.decode('ascii')
-                listeRep = response.split('###')
-                print(listeRep)
-                print(" [.] Got %r" % listeRep)
-                break
             if response == 'erreur':
                 listeRep = [comm, 'erreur']
                 self.reboot
+                break 
+            elif response != 'rien a faire' and response != 'en attente':
+                listeRep = self.deSerialiser(response)
+                print(" [.] Got %r" % listeRep[1])
                 break
+            
         return listeRep
     
     def killServer(self):
         os.kill(self.pidServPyo, SIGTERM)
         os.kill(self.pidServPyo, SIGKILL)
-        
         while self.RPC.poll() == None :
             self.RPC.terminate()
             self.RPC.wait()
-            
+        self.etatConn = 0    
         print('server kill')
         
     def reboot(self):
         print('reboot server')
         self.killServer()
         self.run()
-
-            
-     
         
+    def deSerialiser(self, seq):
+        buffer = BytesIO(seq)
+        read = load(buffer)
+        return read
 
 if __name__ == '__main__':
-
     pyo_rpc = PyoClient()
-    
     listeCommande = ['a = Sine()','a.out()','RETVALUE= a._freq', 'break']
     for i in range(len(listeCommande)):
         x = pyo_rpc.send(listeCommande[i])
+        print(x)
+        print('--------------------------------')
+
         time.sleep(1)
 
 

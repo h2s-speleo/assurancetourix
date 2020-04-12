@@ -9,8 +9,17 @@ import os
 import time
 from signal import SIGTERM, SIGKILL
 from multiprocessing import Process, freeze_support, JoinableQueue
+from pickle import dump
+from io import BytesIO
 import pika
 from pyo import *
+
+
+def serialiser(data):
+    buffer = BytesIO()
+    res = dump(data, buffer)
+    seq = buffer.getvalue()
+    return seq
 
 def audioD():
     with open("./conf", "r") as f :
@@ -24,7 +33,6 @@ def audioD():
         var = var[1:]
     while var.endswith(' '):
         var = var[:-1]
-
     return var
 
 def ServPyo():
@@ -39,7 +47,6 @@ def ServPyo():
         print('default device')
         x = 1
     s.setOutputDevice(x) #définition de la sortie audio du serveur
-    
     while True :
         if not qSonIN1.empty(): #si on a quelquechose dans la queue
             mes = qSonIN1.get()
@@ -49,42 +56,36 @@ def ServPyo():
             else :
                 exec(mes) #on execute la commande passée en str()
             qSonIN1.task_done()    
-        
         if not qSonIN2.empty(): #si on a quelquechose dans la queue
-
             mes2 = qSonIN2.get()
             loc = {}
             exec(mes2, locals(), loc)
             RETVALUE = loc.get('RETVALUE')
             qSonOUT.put(RETVALUE)
             qSonIN2.task_done()   
-        
-            
         time.sleep(0.001)#ralenti la boucle principale
-        
     s.stop() #on coupe le serveur
-    
     print('coupure Serveur Pyo')
 
 def on_request(ch, method, props, body):
     mess = body.decode('ascii')
-
-    
     if mess == 'GETPID':
-        rep = str(pidServPyo)
+        rep = pidServPyo
     elif mess.startswith('RETVALUE'):
         qSonIN2.put(mess)
         qSonIN2.join()
-        rep = str(qSonOUT.get())
+        rep = qSonOUT.get()
     else:
         qSonIN1.put(mess)
         qSonIN1.join()
         rep = 'NULL'
+        
+    DATA = serialiser([str(mess), rep])
     
     ch.basic_publish(exchange='',
                      routing_key=props.reply_to,
                      properties=pika.BasicProperties(correlation_id = props.correlation_id),
-                     body=str(str(mess) + '###' + rep))
+                     body=DATA)
     ch.basic_ack(delivery_tag=method.delivery_tag)
     
     if mess == 'break' :
@@ -105,7 +106,6 @@ while not qSonOUT.empty():
 SP = Process(target=ServPyo, daemon=True) #création du processus du serveur pyo
 SP.start()
 pidServPyo = SP.pid
-
 listeInit = ['s.boot()','s.start()']
 for i in range(len(listeInit)):
     qSonIN1.put(listeInit[i])
@@ -116,8 +116,7 @@ connection = pika.BlockingConnection(
 channel = connection.channel()
 channel.queue_declare(queue='rpcPyo')
 channel.queue_purge(queue = 'rpcPyo')
-channel.basic_qos(prefetch_count=1)
-
+channel.basic_qos(prefetch_count=10)
 channel.basic_consume(queue='rpcPyo', on_message_callback=on_request)
 print('____________________________________________')
 channel.start_consuming()
