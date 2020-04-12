@@ -6,13 +6,28 @@ Created on Wed Apr  8 19:04:55 2020
 @author: j
 """
 
-import pika
+import os
+from signal import SIGTERM, SIGKILL
 import uuid
 import time
+import subprocess
+import pika
 
 class PyoClient(object):
 
     def __init__(self):
+        
+        
+        self.millisEnv = int(round(time.time() * 1000))
+        self.enAttente = 0
+        self.run()
+    
+    def run(self):
+
+        self.RPC = subprocess.Popen('./serverPyo.py')
+        
+        time.sleep(1)
+        
         self.connection = pika.BlockingConnection(
             pika.ConnectionParameters(host='localhost'))
         self.channel = self.connection.channel()
@@ -23,9 +38,11 @@ class PyoClient(object):
             queue=self.callback_queue,
             on_message_callback=self.on_response,
             auto_ack=True)
+        self.pidRPC = self.RPC.pid
+        temp = self.send("GETPID")
+        self.pidServPyo = temp[1]
         
-        self.millisEnv = int(round(time.time() * 1000))
-        self.enAttente = 0
+        print('server run')
 
     def on_response(self, ch, method, props, body):
         if self.corr_id == props.correlation_id:
@@ -50,10 +67,10 @@ class PyoClient(object):
         if self.enAttente == 1 :
             attente = int(round(time.time() * 1000)) - self.millisEnv
             print(attente, end = ' ')
-            if attente > 3000 :
+            if attente > 500 :
                 self.enAttente = 0 
                 print('erreur')
-                return 'erreur'
+                return 'comm###erreur'
             elif self.response == 'en attente' :
                 self.connection.process_data_events()
                 return 'en attente'
@@ -63,41 +80,53 @@ class PyoClient(object):
         else :
             return 'rien a faire'
         
+    def send(self, comm):
+        print(comm)
+    
+        print(comm, end = ' ')
+        self.call(comm)
+        while True :
+            response = self.checkReponse()
+            if response != 'rien a faire' and response != 'en attente':
+                if type(response) == bytes :
+                    response = response.decode('ascii')
+                listeRep = response.split('###')
+                print(listeRep)
+                print(" [.] Got %r" % listeRep)
+                break
+            if response == 'erreur':
+                listeRep = [comm, 'erreur']
+                self.reboot
+                break
+        return listeRep
+    
+    def killServer(self):
+        os.kill(self.pidServPyo, SIGTERM)
+        os.kill(self.pidServPyo, SIGKILL)
+        
+        while self.RPC.poll() == None :
+            self.RPC.terminate()
+            self.RPC.wait()
+            
+        print('server kill')
+        
+    def reboot(self):
+        print('reboot server')
+        self.killServer()
+        self.run()
+
+            
+     
+        
+
+if __name__ == '__main__':
+
+    pyo_rpc = PyoClient()
+    
+    listeCommande = ['a = Sine()','a.out()','RETVALUE= a._freq', 'break']
+    for i in range(len(listeCommande)):
+        x = pyo_rpc.send(listeCommande[i])
+        time.sleep(1)
 
 
-
-###############################################################################
-pyo_rpc = PyoClient()
-print(" [x] Requesting : a = Sine().out()")
-pyo_rpc.call('a = Sine().out()')
-
-compt = 0
-while True :
-    response = pyo_rpc.checkReponse()
     
-    if response != 'rien a faire' and response != 'en attente':
-        print(" [.] Got %r" % response)
-        break
-    
-    if response == 'erreur':
-        print('tuer proprement le serveur et le redémarer')
-        break
-    
-
-time.sleep(1)
-print(" [x] Requesting : break")
-pyo_rpc.call('break')
-
-compt = 0
-while True :
-    response = pyo_rpc.checkReponse()
-    
-    if response != 'rien a faire' and response != 'en attente':
-        print(" [.] Got %r" % response)
-        break
-    
-    if response == 'erreur':
-        print('tuer proprement le serveur et le redémarer')
-        break
-    
-##############################################################################

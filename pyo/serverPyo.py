@@ -12,12 +12,28 @@ from multiprocessing import Process, freeze_support, JoinableQueue
 import pika
 from pyo import *
 
+def audioD():
+    with open("./conf", "r") as f :
+        fichier_entier = f.read()
+        files = fichier_entier.split("\n")
+    for line in files :
+        if line.startswith('audio device ='):
+            var = line.replace('audio device =', '')
+            break
+    while var.startswith(' '):
+        var = var[1:]
+    while var.endswith(' '):
+        var = var[:-1]
+
+    return var
+
 def ServPyo():
     s = Server() #instanciation du serveur
     x = None
+    print(audioDevice)
     inputs, outputs = pa_get_devices_infos() #récupération de la liste des périphériques
     for index in sorted(outputs.keys()):
-        if outputs[index]['name'] == 'pulse' : # nom de ton périférique son
+        if outputs[index]['name'] == audioDevice : # nom de ton périférique son
             x = index
     if x == None : #en cas d'échec on se choisi au périphérique 0
         print('default device')
@@ -25,45 +41,75 @@ def ServPyo():
     s.setOutputDevice(x) #définition de la sortie audio du serveur
     
     while True :
-        if not qSon.empty(): #si on a quelquechose dans la queue
-            mes = qSon.get()
-            print(mes)
+        if not qSonIN1.empty(): #si on a quelquechose dans la queue
+            mes = qSonIN1.get()
             if mes == 'break':
+                qSonIN1.task_done()
                 break #fin de la boucle infinie
             else :
                 exec(mes) #on execute la commande passée en str()
-            qSon.task_done()    
+            qSonIN1.task_done()    
+        
+        if not qSonIN2.empty(): #si on a quelquechose dans la queue
+
+            mes2 = qSonIN2.get()
+            loc = {}
+            exec(mes2, locals(), loc)
+            RETVALUE = loc.get('RETVALUE')
+            qSonOUT.put(RETVALUE)
+            qSonIN2.task_done()   
+        
+            
         time.sleep(0.001)#ralenti la boucle principale
         
     s.stop() #on coupe le serveur
-    qSon.task_done()
+    
     print('coupure Serveur Pyo')
 
 def on_request(ch, method, props, body):
     mess = body.decode('ascii')
-    qSon.put(mess)
-    qSon.join()
 
+    
+    if mess == 'GETPID':
+        rep = str(pidServPyo)
+    elif mess.startswith('RETVALUE'):
+        qSonIN2.put(mess)
+        qSonIN2.join()
+        rep = str(qSonOUT.get())
+    else:
+        qSonIN1.put(mess)
+        qSonIN1.join()
+        rep = 'NULL'
+    
     ch.basic_publish(exchange='',
                      routing_key=props.reply_to,
                      properties=pika.BasicProperties(correlation_id = props.correlation_id),
-                     body=str('done : ' + str(mess)))
+                     body=str(str(mess) + '###' + rep))
     ch.basic_ack(delivery_tag=method.delivery_tag)
     
     if mess == 'break' :
         channel.stop_consuming()
 
+audioDevice = audioD()
+
 freeze_support()
-qSon = JoinableQueue() #création de la queue du serveur pyo
+qSonIN1 = JoinableQueue() #création de la queue du serveur pyo
+while not qSonIN1.empty():
+    qSonIN1.get()
+qSonIN2 = JoinableQueue() #création de la queue du serveur pyo
+while not qSonIN2.empty():
+    qSonIN2.get()
+qSonOUT = JoinableQueue() #création de la queue du serveur pyo
+while not qSonOUT.empty():
+    qSonOUT.get()
 SP = Process(target=ServPyo, daemon=True) #création du processus du serveur pyo
 SP.start()
 pidServPyo = SP.pid
-while not qSon.empty():
-    qSon.get()
+
 listeInit = ['s.boot()','s.start()']
 for i in range(len(listeInit)):
-    qSon.put(listeInit[i])
-    qSon.join() 
+    qSonIN1.put(listeInit[i])
+    qSonIN1.join() 
 
 connection = pika.BlockingConnection(
     pika.ConnectionParameters(host='localhost'))
@@ -76,7 +122,7 @@ channel.basic_consume(queue='rpcPyo', on_message_callback=on_request)
 print('____________________________________________')
 channel.start_consuming()
 
-qSon.put('break')
+qSonIN1.put('break')
 SP.join() #on attend la fin du processus du serveur pyo 
 SP.terminate() #on supprime le processus du serveur pyo 
 if SP.is_alive():

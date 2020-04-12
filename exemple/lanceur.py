@@ -23,7 +23,6 @@ for i in range(5):
 while test.poll() == None :
     print('alive')
     test.terminate()
-#    test.kill()
     test.wait()
     print(test.poll())
 
