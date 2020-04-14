@@ -12,6 +12,7 @@ class Motif:
         self.melo = None
         self.harmo = None
         self.mesure = None
+        self.percu = None
         self.parent = None
 
         self.mode = TC.tonal_M
@@ -75,7 +76,7 @@ class Motif:
         self.longMin = kwargs.get('longMin', self.longMin)
         self.cible = kwargs.get('cible', self.cible)
 
-
+        
 
 
 
@@ -90,6 +91,9 @@ class Motif:
         self.mesure = SF.Mesure(nbTps = self.nbTps,
                              nbSTps = self.nbSTps)
         self.mesure.parent = self
+        
+        self.percu = SF.Percu(self)
+
 
         self.compo = SF.Compo(probTotal = self.probTotal,
                               probTpsFa = self.probTpsFa,

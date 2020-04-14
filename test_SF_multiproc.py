@@ -11,32 +11,44 @@ class IGraph:
     def __init__(self):
         self.motif = SF.Motif() ##############################################
         
-        self.job = {}
+        self.job = Process(target=self.ModifMotif,  args=(' ',), daemon=True)
         freeze_support()
         self.qSolf = Queue()
+
+        self.busy = 0
     
     def ModifMotif(self, comm):
         exec(comm)
-        self.qSolf.put((comm, self.motif))####################################
+        self.qSolf.put((self.motif))####################################
 
     def commandeMM(self, commande):
-        self.job[commande] = Process(target=IG.ModifMotif,  args=(commande,), daemon=True)
-        self.job[commande].start()
-        
-    def getQSolf(self):
-        if not self.qSolf.empty() :
-            mess = self.qSolf.get()
-            self.motif = mess[1]##############################################
-            self.job[mess[0]].join()
-            self.job[mess[0]].terminate()
-            del self.job[mess[0]]
+        self.getResultMM()
+        self.busy = 1
+        self.job = Process(target=self.ModifMotif,  args=(commande,), daemon=True)
+        self.job.start()
+
+
+    def getResultMM(self):
+        if self.busy == 1:
+            self.job.join()
+            self.job.terminate()
+            while not self.qSolf.empty() :
+                mess = self.qSolf.get()
+                self.motif = mess
+            self.busy=0
+            
+
 
 IG = IGraph()
+
+
 print(IG.motif.nomFr)
-IG.commandeMM("IG.motif.reset(nomFr = 'ré', alt = '', nbTps = 2)")
+millisEnv = time.time()
 
-time.sleep(0.5)
+IG.commandeMM("IG.motif.reset(nomFr = 'ré', alt = '', nbTps = 2)")####################################
+# pendant ce temps on fait d'autres trucs
+IG.getResultMM()
 
-IG.getQSolf()
+print((time.time() - millisEnv ) * 1000 )
 print(IG.motif.nomFr)
     

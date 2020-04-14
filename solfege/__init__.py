@@ -12,7 +12,8 @@ from solfege.Compo import Compo
 from solfege.Mesure import Mesure
 from solfege.Rythme import Rythme
 from solfege.Motif import Motif
+from solfege.Percu import Percu
 from solfege.TCores import TC
 
 
-__all__ = ['Note', 'Tonal', 'Motif', 'Compo', 'Mesure', 'Melo', 'Rythme']
+__all__ = ['Note', 'Silence', 'Tonal', 'Motif', 'Compo', 'Mesure', 'Melo', 'Rythme', 'Percu']

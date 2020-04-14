@@ -14,9 +14,10 @@ from pickle import load
 from io import BytesIO
 import pika
 
-class PyoClient(object):
+class PyoClient():
     def __init__(self):
         self.etatConn = 0
+        self.crash = 0
         self.millisEnv = int(round(time.time() * 1000))
         self.enAttente = 0
         self.run()
@@ -38,13 +39,18 @@ class PyoClient(object):
         temp = self.send("GETPID")
         self.pidServPyo = temp[1]
         self.etatConn = 1
+        if self.crash == 1:
+            self.crash = 2
+        
         print('server run')
 
     def on_response(self, ch, method, props, body):
         if self.corr_id == props.correlation_id:
             self.response = body
 
-    def call(self, n):
+    def send(self, comm):
+        self.millisEnv = int(round(time.time() * 1000))
+        print(comm, end = ' ')
         self.corr_id = str(uuid.uuid4())
         self.channel.basic_publish(
             exchange='',
@@ -52,10 +58,18 @@ class PyoClient(object):
             properties=pika.BasicProperties(
                 reply_to=self.callback_queue,
                 correlation_id=self.corr_id),
-                body=str(n))
+                body=str(comm))
         self.response = 'en attente'
         self.enAttente = 1
-        self.millisEnv = int(round(time.time() * 1000))
+        
+        if 'RETVALUE' in comm or 'GETPID' in comm:
+            x = self.reception(comm)
+            print(x)
+        else :
+            print(int(round(time.time() * 1000)) - pyo_rpc.millisEnv)
+            x = [comm, 'NULL']
+        return x
+        
         
     def checkReponse(self):
         if self.enAttente == 1 :
@@ -74,21 +88,23 @@ class PyoClient(object):
         else :
             return 'rien a faire'
         
-    def send(self, comm):
-        print(comm, end = ' ')
-        self.call(comm)
+
+        
+    def reception(self, comm):
+        
         while True :
             response = self.checkReponse()
             if response == 'erreur':
                 listeRep = [comm, 'erreur']
-                self.reboot
-                break 
+                self.reboot()
+                return listeRep
+                break
             elif response != 'rien a faire' and response != 'en attente':
                 listeRep = self.deSerialiser(response)
                 print(" [.] Got %r" % listeRep[1])
+                return listeRep
                 break
-            
-        return listeRep
+        
     
     def killServer(self):
         os.kill(self.pidServPyo, SIGTERM)
@@ -101,6 +117,7 @@ class PyoClient(object):
         
     def reboot(self):
         print('reboot server')
+        self.crash = 1
         self.killServer()
         self.run()
         
@@ -114,10 +131,12 @@ if __name__ == '__main__':
     listeCommande = ['a = Sine()','a.out()','RETVALUE= a._freq', 'break']
     for i in range(len(listeCommande)):
         x = pyo_rpc.send(listeCommande[i])
-        print(x)
+        
+
+
         print('--------------------------------')
 
-        time.sleep(1)
+        time.sleep(0.5)
 
 
     
