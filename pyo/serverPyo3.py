@@ -49,6 +49,7 @@ def ServPyo(self):
 class rpcServeurPyo():
     def __init__(self):
         self.etatCon = 0
+        
         self.audioD()
         freeze_support()
         self.connection = pika.BlockingConnection(
@@ -79,9 +80,11 @@ class rpcServeurPyo():
         print('#############################')
         self.initmessage()
         self.etatCon = 1
+
         print('serveur initialisé')
 
     def kill(self):
+
         self.qSonIN2.put('break')
         self.etatCon = 0
         try :
@@ -109,7 +112,21 @@ class rpcServeurPyo():
   
     def reboot(self):
         print('reboot serveur pyo')
-        self.kill()
+
+        self.qSonIN2.put('break')
+        self.etatCon = 0
+        try:
+            self.SP.terminate()
+            self.SP.join()
+            self.SP.close()
+        except : 
+            try:
+                os.kill(self.pidServPyo, SIGTERM)
+                print('TERM signal')
+                os.kill(self.pidServPyo, SIGKILL)
+                print('KILL signal')
+            except:
+                pass
         self.run()
      
     def initmessage(self):
@@ -134,8 +151,7 @@ class rpcServeurPyo():
                 print(rep)
                 if rep == 0:
                     self.initmessage()
-            else:
-                self.reboot()
+
             time.sleep(0.1)
             DATA = self.serialiser([str(mess), self.etatCon])
             self.channel.basic_publish(exchange='',
@@ -144,40 +160,41 @@ class rpcServeurPyo():
                              body=DATA)
             self.channel.basic_ack(delivery_tag=method.delivery_tag)
         else :
-            self.qSonIN2.put(mess)
-            if mess == 'break' :
-                self.kill()
-                DATA = self.serialiser([str(mess), 'SERVEUR_MORT'])
-                self.channel.basic_publish(exchange='',
-                                 routing_key=props.reply_to,
-                                 properties=pika.BasicProperties(),
-                                 body=DATA)
-                self.channel.basic_ack(delivery_tag=method.delivery_tag)
-                self.channel.stop_consuming()
-                
-            elif mess == 'REBOOT' :
-                self.kill()
-                DATA = self.serialiser([str(mess), 'REBOOTING'])
-                self.channel.basic_publish(exchange='',
-                                 routing_key=props.reply_to,
-                                 properties=pika.BasicProperties(),
-                                 body=DATA)
-                self.channel.basic_ack(delivery_tag=method.delivery_tag)
-                self.reboot()
-                
-            else :
-                self.check_message()
-                rep = self.qSonOUT.get()           
-                DATA = self.serialiser([str(mess), rep])
-                self.channel.basic_publish(exchange='',
-                                 routing_key=props.reply_to,
-                                 properties=pika.BasicProperties(),
-                                 body=DATA)
-                self.channel.basic_ack(delivery_tag=method.delivery_tag)
-                print('| rep', end = ' ')
-                print(rep)
-                if rep == 'CRASHSERVER':
-                    self.reboot() 
+            if self.etatCon == 1:
+                self.qSonIN2.put(mess)
+                if mess == 'break' :
+                    self.kill()
+                    DATA = self.serialiser([str(mess), 'SERVEUR_MORT'])
+                    self.channel.basic_publish(exchange='',
+                                     routing_key=props.reply_to,
+                                     properties=pika.BasicProperties(),
+                                     body=DATA)
+                    self.channel.basic_ack(delivery_tag=method.delivery_tag)
+                    self.channel.stop_consuming()
+                    
+                elif mess == 'REBOOT' :
+#                    self.kill()
+                    DATA = self.serialiser([str(mess), 'REBOOTING'])
+                    self.channel.basic_publish(exchange='',
+                                     routing_key=props.reply_to,
+                                     properties=pika.BasicProperties(),
+                                     body=DATA)
+                    self.channel.basic_ack(delivery_tag=method.delivery_tag)
+                    self.reboot()
+                    
+                else :
+                    self.check_message()
+                    rep = self.qSonOUT.get()           
+                    DATA = self.serialiser([str(mess), rep])
+                    self.channel.basic_publish(exchange='',
+                                     routing_key=props.reply_to,
+                                     properties=pika.BasicProperties(),
+                                     body=DATA)
+                    self.channel.basic_ack(delivery_tag=method.delivery_tag)
+                    print('| rep', end = ' ')
+                    print(rep)
+                    if rep == 'CRASHSERVER':
+                        self.reboot() 
 
     def check_message(self):
         temps = time.time() * 1000

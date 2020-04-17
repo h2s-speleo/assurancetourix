@@ -1,0 +1,2 @@
+ 
+sudo -u rabbitmq rabbitmqctl stop

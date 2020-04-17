@@ -126,10 +126,7 @@ class PyoClient():
     
     def kill(self):
         self.send('break')
-        try :
-            self.channel.queue_delete(queue='rpcPyo')
-        except:
-            pass
+
         try :
             self.channel.close()
         except :
@@ -138,32 +135,28 @@ class PyoClient():
             self.connection.close()
         except :
             pass
-        try :
-            self.connection.close()
-        except:
-            pass
 
 if __name__ == '__main__':
     pyo_rpc = PyoClient()
     pyo_rpc.initMess.append('a = Sine()')
     pyo_rpc.testConnex()
     
-#    listeCommande = ['a.out()','RETVALUE= a._freq', 'a.stop()']
-#    for j in range(3):
-#        for i in range(len(listeCommande)):
-#            x = pyo_rpc.send(listeCommande[i])
-#            time.sleep(1)
-#    
-#    listeCommande = ['REBOOT', 'iusdfiougqsdfoiug']
-#    for j in range(2):
-#        for i in range(len(listeCommande)):
-#            x = pyo_rpc.send(listeCommande[i])
-#            time.sleep(1)
-#    
-#    listeCommande = ['a.out()','RETVALUE= a._freq', 'a.stop()']
-#    for j in range(3):
-#        for i in range(len(listeCommande)):
-#            x = pyo_rpc.send(listeCommande[i])
-#            time.sleep(1)
+    listeCommande = ['a.out()','RETVALUE= a._freq', 'a.stop()']
+    for j in range(3):
+        for i in range(len(listeCommande)):
+            x = pyo_rpc.send(listeCommande[i])
+            time.sleep(1)
+    
+    listeCommande = ['REBOOT', 'iusdfiougqsdfoiug']
+    for j in range(2):
+        for i in range(len(listeCommande)):
+            x = pyo_rpc.send(listeCommande[i])
+            time.sleep(1)
+    
+    listeCommande = ['a.out()','RETVALUE= a._freq', 'a.stop()']
+    for j in range(3):
+        for i in range(len(listeCommande)):
+            x = pyo_rpc.send(listeCommande[i])
+            time.sleep(1)
 
     pyo_rpc.kill()
