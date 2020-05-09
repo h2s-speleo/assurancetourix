@@ -34,9 +34,17 @@ port = 1233
 
 
 ### lancement
-
-
+```
+serverPyoRPC.py --action=start --config=/where/is/the/config.ini
+```
 
 ### arrêt
 
+```
+serverPyoRPC.py --action=stop
+```
+
+
 ## Client xmlrpc
+
+clientPyoRPC.py
