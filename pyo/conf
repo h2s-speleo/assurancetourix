@@ -1,1 +1,11 @@
+[DEFAULT]
 audio device =  pulse  
+log = /tmp/logpyo.log
+
+[PYO]
+verbosity = 8
+output = 0
+duplex = 0
+
+[xmlrpcServ]
+port = 1233
