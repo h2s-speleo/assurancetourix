@@ -47,4 +47,22 @@ serverPyoRPC.py --action=stop
 
 ## Client xmlrpc
 
+### Exemple
+
 clientPyoRPC.py
+
+### Exemple interactif
+```
+>>> import xmlrpc.client
+>>> s = xmlrpc.client.ServerProxy('http://127.0.0.1:1233')
+>>> s.get_pyopid()
+'20769'
+>>> s.is_pyostarted()
+True
+>>> s.pyocmd('a=Sine(800)')
+'NULL'
+>>> s.pyocmd('a.out()')
+'NULL'
+>>> s.pyocmd('a.stop()')
+'NULL'
+```
